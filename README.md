@@ -6,8 +6,11 @@
 | nickname           | string | null: false              |
 | email              | string | null: false unique: true |
 | encrypted_password | string | null: false              |
-| name               | string | null: false              |
-| birthday           | text   | null: false              |
+| family_name        | string | null: false              |
+| first_name          | string | null: false             |
+| family_name_ruby | string | null: false |
+| first_name_ruby | string | null:false |
+| birthday           | date  | null: false              |
 
 
 ### Association
@@ -20,23 +23,26 @@
 
 ## Itemsテーブル
 
-| Column          | Type   | Options     |
-| --------------- | ------ | ----------- |
-| image           | text   | null: false |  商品画像を1枚つけることが必須であること
-| name            | string | null: false |  商品名が必須であること
-| text            | text   | null: false |  商品の説明が必須であること
-| category        | string | null: false |  カテゴリーの情報が必須であること
-| type            | text   | null: false |  商品の状態についての情報が必須であること
-| delivery-pay    | text   | null: false |  配送料の負担についての情報が必須であること
-| area            | text   | null: false |  発送元の地域についての情報が必須であること
-| day             | text   | null: false |  発送までの日数についての情報が必須であること
-| price           | string | null: false |  価格についての情報が必須であること
+| Column          | Type    | Options     |
+| --------------- | ------  | ----------- |
+| name            | string  | null: false |  商品名が必須であること
+| text            | text    | null: false |  商品の説明が必須であること
+| category_id     | integer | null: false |  カテゴリーの情報が必須であること
+| type_id         | integer | null: false |  商品の状態についての情報が必須であること
+| delivery_pay_id | integer | null: false |  配送料の負担についての情報が必須であること
+| area_id         | integer | null: false |  発送元の地域についての情報が必須であること
+| day_id          | integer | null: false |  発送までの日数についての情報が必須であること
+| price           | integer | null: false |  価格についての情報が必須であること
+| user | references | null: false, foreign_key: true |
+
   
 
 ### Association
 
 - belongs_to :users
 - belongs_to :buys
+- 
+
 
 
 ## Buysテーブル
@@ -44,6 +50,8 @@
 | Column | Type   | Options     |
 | ------ | ------ | ----------- |
 | text   | text   | null: false, foreign_key: true |
+| user | references | null: false, foreign_key: true |
+| item | references | null: false, foreign_key: true |
 
 
 ### Association
@@ -56,8 +64,10 @@
 
 | Column | Type | Options |
 | ------- | ------- | ------- |
-| post-nunber | text | null: false |
-| prefecture | text | null: false |
-| city | text | null: false |
-| number | text | null: false |
-| phone | number | null: false |配送先の情報として、郵便番号・都道府県・市区町村・番地・電話番号が必須であること
+| post_number | string | null: false |
+| prefecture | integer | null: false |
+| city | integer | null: false |
+| number | string | null: false |
+| phone_number | string | null: false |配送先の情報として、郵便番号・都道府県・市区町村・番地・電話番号が必須であること
+| building_name | integer | null: false |
+| buy | references | null: false, foreign_key: true |
