@@ -16,8 +16,7 @@
 ### Association
 
 - has_many :buys
-- has_many :items, through: items_users
-- has_many :delivery_users
+- has_many :items
 
 
 
@@ -39,8 +38,8 @@
 
 ### Association
 
-- belongs_to :users
-- belongs_to :buys
+- belongs_to :user
+- has_one :buy
 - 
 
 
@@ -49,25 +48,28 @@
 
 | Column | Type   | Options     |
 | ------ | ------ | ----------- |
-| text   | text   | null: false, foreign_key: true |
 | user | references | null: false, foreign_key: true |
 | item | references | null: false, foreign_key: true |
 
 
 ### Association
 
-- belongs_to :users
-- has_many :items
+- belongs_to :user
+- has_one :item
 
 
 ## Deliverysテーブル
 
 | Column | Type | Options |
 | ------- | ------- | ------- |
+| area_id | integer | null: false | 
 | post_number | string | null: false |
 | prefecture | integer | null: false |
 | city | integer | null: false |
-| number | string | null: false |
+| number | integer | null: false |
 | phone_number | string | null: false |配送先の情報として、郵便番号・都道府県・市区町村・番地・電話番号が必須であること
 | building_name | integer | null: false |
 | buy | references | null: false, foreign_key: true |
+
+### Association
+ - has_one :buy
