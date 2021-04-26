@@ -55,7 +55,8 @@
 ### Association
 
 - belongs_to :user
-- has_one :item
+- belongs_to :item
+- belongs_to :delivery
 
 
 ## Deliverysテーブル
@@ -72,4 +73,4 @@
 | buy | references | null: false, foreign_key: true |
 
 ### Association
- - has_one :buy
+ - belongs_to :buy
