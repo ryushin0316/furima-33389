@@ -56,7 +56,7 @@
 
 - belongs_to :user
 - belongs_to :item
-- belongs_to :delivery
+- has_one :delivery
 
 
 ## Deliverysテーブル
@@ -65,11 +65,10 @@
 | ------- | ------- | ------- |
 | area_id | integer | null: false | 
 | post_number | string | null: false |
-| prefecture | integer | null: false |
 | city | integer | null: false |
-| number | integer | null: false |
+| number | text | null: false |
 | phone_number | string | null: false |配送先の情報として、郵便番号・都道府県・市区町村・番地・電話番号が必須であること
-| building_name | integer | null: false |
+| building_name | text |
 | buy | references | null: false, foreign_key: true |
 
 ### Association
