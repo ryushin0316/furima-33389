@@ -21,7 +21,6 @@ class User < ApplicationRecord
 
    validates :birthday, presence:true
 
-   validates :password, numericality: { greater_than_or_equal_to: 6 }
    validates :password, format: { with: /\A(?=.*[a-z])(?=.*?[\d])[a-z\d]+\z/i, message: "半角英数字混合で入力して下さい" }
 
    validates :password, confirmation: true
