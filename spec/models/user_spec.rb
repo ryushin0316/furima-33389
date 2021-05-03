@@ -9,15 +9,11 @@ RSpec.describe User, type: :model do
 
     context 'ユーザーの新規登録ができる時' do
       it '全ての情報があれば保存できる' do
+        expect(@user).to be_valid
       end
     end
   
     context 'ユーザーの新規登録ができない時' do
-      it '全ての情報がないと保存できない' do
-      end
-    end
-  
-
     it 'nicknameが必須である' do
       @user.nickname = ''
       @user.valid?
