@@ -8,8 +8,9 @@ class User < ApplicationRecord
    has_many :items
 
    validates :nickname, presence: true
+   validates :email, uniqueness: true
 
-   with_options presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥]+\z/, message: "全角漢字・ひらがな・カタカナで入力して下さい" } do
+   with_options presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: "全角漢字・ひらがな・カタカナで入力して下さい" } do
      validates :family_name
      validates :first_name
    end

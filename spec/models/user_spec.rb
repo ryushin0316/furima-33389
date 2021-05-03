@@ -4,6 +4,17 @@ RSpec.describe User, type: :model do
     before do 
       @user = FactoryBot.build(:user)
     end
+
+  context 'ユーザーの新規登録ができる時' do
+    it '' do
+    end
+  end
+
+  context 'ユーザーの新気筒rができないとき' do
+    it '' do
+    end
+  end
+
   describe "新規登録/ユーザー情報" do
     it 'nicknameが必須である' do
       @user.nickname = ''
@@ -20,6 +31,13 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("Email is invalid")
     end
+    it '重複したemailでは登録できないこと'do
+      @user.save
+      another_user = FactoryBot.build(:user, email: @user.email)
+      another_user.valid?
+      expect(another_user.errors.full_messages).to include("Email has already been taken")
+    end
+
     it 'パスワードが必須である' do
       @user.password = ''
       @user.valid?
@@ -33,6 +51,21 @@ RSpec.describe User, type: :model do
     end
     it "パスワードは、半角英数字混合での入力が必須であること" do
       @user.password = 'aaaaaaa'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password 半角英数字混合で入力して下さい")
+    end
+    it 'パスワードでは、英語のみでは登録できないこと' do
+      @user.password = '222222'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password 半角英数字混合で入力して下さい")
+    end
+    it 'パスワードは、数字のみでは登録できないこと' do
+      @user.password = 'aaaaaaa'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password 半角英数字混合で入力して下さい")
+    end
+    it '全角では登録できないこと' do
+      @user.password = '１１１１１１'
       @user.valid?
       expect(@user.errors.full_messages).to include("Password 半角英数字混合で入力して下さい")
     end
