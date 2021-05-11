@@ -32,35 +32,60 @@ RSpec.describe Item, type: :model do
        it 'カテゴリーの情報が必須であること' do
        @item.category_id = ''
        @item.valid?
-       expect(@item.errors.full_messages).to include("Category can't be blank")
+       expect(@item.errors.full_messages).to include("Category is not a number")
        end
+       it 'カテゴリーの情報が0では登録できない' do
+        @item.category_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category must be other than 0")
+        end
        it '商品の状態についての情報が必須であること' do
        @item.type_id = ''
        @item.valid?
-       expect(@item.errors.full_messages).to include("Type can't be blank")
+       expect(@item.errors.full_messages).to include("Type is not a number")
        end
+       it '商品の状態についての情報が0では登録できない' do
+        @item.type_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Type must be other than 0")
+        end
        it '配送料の負担についての情報が必須であること' do
        @item.delivery_pay_id = ''
        @item.valid?
-       expect(@item.errors.full_messages).to include("Delivery pay can't be blank")
+       expect(@item.errors.full_messages).to include("Delivery pay is not a number")
        end
+       it '配送料の負担についての情報が0では登録できない' do
+        @item.delivery_pay_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery pay must be other than 0")
+        end
        it '発送元の地域についての情報が必須であること' do
        @item.area_id = ''
        @item.valid?
-       expect(@item.errors.full_messages).to include("Area can't be blank")
+       expect(@item.errors.full_messages).to include("Area is not a number")
        end
+       it '発送元の地域についての情報が0では登録できない' do
+        @item.area_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Area must be other than 0")
+        end
        it '発送までの日数についての情報が必須であること' do
        @item.day_id = ''
        @item.valid?
-       expect(@item.errors.full_messages).to include("Day can't be blank")
+       expect(@item.errors.full_messages).to include("Day is not a number")
        end
+       it '発送までの日数についての情報が0では登録できない' do
+        @item.day_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Day must be other than 0")
+        end
        it '価格についての情報が必須であること' do
        @item.price = ''
        @item.valid?
        expect(@item.errors.full_messages).to include("Price can't be blank")
        end
        it '価格の範囲が、¥300~¥9,999,999の間であること' do
-       @item.price = '100'
+       @item.price = 100
        @item.valid?
        expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
        end
@@ -68,6 +93,11 @@ RSpec.describe Item, type: :model do
        @item.price = 'aaaaa'
        @item.valid?
        expect(@item.errors.full_messages).to include("Price is not a number")
+       end
+       it '価格が上限を超えた場合は登録できない' do
+         @item.price = 10,000,000
+         @item.valid?
+         expect(@item.errors.full_messages).to include("Price is invalid")
        end
      end
   end
