@@ -94,7 +94,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
       it '価格が上限を超えた場合は登録できない' do
-        @item.price = 10, 0o00, 0o00
+        @item.price = 10_000_000
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is invalid')
       end
