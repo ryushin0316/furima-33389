@@ -2,7 +2,10 @@ class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
 
   belongs_to :category
+  belongs_to :type
   belongs_to :delivery_pay
+  belongs_to :area
+  belongs_to :day
 
   # 空の投稿を保存できないようにする
   validates :name, presence: true
