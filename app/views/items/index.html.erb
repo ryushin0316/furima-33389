@@ -127,11 +127,12 @@
     <ul class='item-lists'>
 
       <%# 商品のインスタンス変数になにか入っている場合、中身のすべてを展開できるようにしましょう %>      
-  <% @items.each do |items| %>
+
+   <% @items.each do |item| %>
     <li class='list'>
       <%= link_to "#" do %>
         <div class='item-img-content'>
-          <%= image_tag items.image, class: "item-img" %>
+          <%= image_tag item.image, class: "item-img" %>
 
           <%# 商品が売れていればsold outを表示しましょう %>
           <%#if order.item_id.present? %>
@@ -144,10 +145,10 @@
 
         <div class='item-info'>
           <h3 class='item-name'>
-            <%= items.name%>
+            <%= item.name%>
           </h3>
           <div class='item-price'>
-            <span><%= items.price%>円<br><%= items.delivery_pay_id%></span>
+            <span><%= item.price%>円<br><%= item.delivery_pay_id%></span>
             <div class='star-btn'>
               <%= image_tag "star.png", class:"star-icon" %>
               <span class='star-count'>0</span>
@@ -156,11 +157,13 @@
         </div>
       <% end %>
     </li>
-  <% end %>
+   <% end %>
+
       <%# //商品のインスタンス変数になにか入っている場合、中身のすべてを展開できるようにしましょう %>
 
       <%# 商品がない場合は以下のダミー商品が表示されるようにしましょう %>
       <%# 商品がある場合は表示されないようにしましょう %>
+   <% if @items.length == 0 %>
       <li class='list'>
         <%= link_to '#' do %>
         <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
@@ -178,6 +181,7 @@
         </div>
         <% end %>
       </li>
+    <% end %>
       <%# //商品がある場合は表示されないようにしましょう %>
       <%# //商品がない場合は以下のダミー商品が表示されるようにしましょう %>
     </ul>
