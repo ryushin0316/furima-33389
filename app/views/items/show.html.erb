@@ -1,6 +1,5 @@
 <%= render "shared/header" %>
 
-<%= link_to item_path(@item.id), method: :get do %>
 <div class="item-show">
   <div class="item-box">
     <h2 class="name">
@@ -36,7 +35,7 @@
   <% end %>
   
     <div class="item-explain-box">
-      <span><%= "商品説明" %></span>
+      <span><%= @item.text.name %></span>
     </div>
     <table class="detail-table">
       <tbody>

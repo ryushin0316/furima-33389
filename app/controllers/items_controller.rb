@@ -6,17 +6,12 @@ class ItemsController < ApplicationController
   end
 
   def new
-    if user_signed_in?
-     @item = Item.new      
-    else
-      redirect_to user_session_path(@item.id)
-    end
   end
 
   def create
     @item = Item.new(item_params)
     if @item.save
-      redirect_to items_path
+      redirect_to root_path
     else
       render :new
     end
