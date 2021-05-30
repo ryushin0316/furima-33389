@@ -1,13 +1,16 @@
 class BuyDeliverysController < ApplicationController
+  before_action :set_item, only: [:index, :create]
+  #before_action :sold_out_item, only: [:index]
+  before_action :authenticate_user!, only:[:index, :create]
+
+  before_action :move_to_index, only: [:index, :create]
 
   def index
     @buy_delivery = BuyDelivery.new
-    @item = Item.find(params[:item_id])
-  end
+  end 
 
   def create
-    @buy_delivery = BuyDelivery.new(delivery_params)
-    @item = Item.find(params[:item_id])
+    @buy_delivery = BuyDelivery.new(delivery_params) 
     if @buy_delivery.valid?
       pay_item
       @buy_delivery.save
@@ -16,6 +19,7 @@ class BuyDeliverysController < ApplicationController
       render 'index'
     end
   end
+
 
   private
     def delivery_params
@@ -30,7 +34,21 @@ class BuyDeliverysController < ApplicationController
         currency: 'jpy'                 # 通貨の種類（日本円）
       )
     end
-  end
+    
+   # def sold_out_item
+    #  redirect_to root_path if @item.present?
+    #end
+
+    def set_item
+      @item = Item.find(params[:item_id])
+    end
+
+    def move_to_index
+      if current_user.id == @item.user_id || @item.buy.present? #商品が売れてるよ（ソールドアウトしているよ）
+        redirect_to root_path
+      end
+    end
+end
 
   #　amountの記述（商品のpriceの取得方法）
   #　cardのparams名（delivery_paramsの記述でOKかどうか）
