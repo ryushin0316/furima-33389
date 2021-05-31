@@ -12,13 +12,12 @@ end
          context '商品の購入ができる' do
 
            it '全ての情報があれば購入できる' do
-           expect(@buys_deliverys).to be_valid
+            expect(@buys_deliverys).to be_valid
            end
 
            it '建物名が空でも登録できること' do
-            @buys_deliverys.building_name = ''
-            @buys_deliverys.valid?
-           end
+            expect(@buys_deliverys).to be_valid
+          end
          end
 
         context '商品の購入ができない時' do
@@ -42,7 +41,7 @@ end
            end
         
            it '郵便番号は半角数字のみ保存可能であること' do
-            @buys_deliverys.post_number = '０００−００００'
+            @buys_deliverys.post_number = ''
             @buys_deliverys.valid?
             expect(@buys_deliverys.errors.full_messages).to include("Post number is invalid. Include hyphen(-)")
            end
@@ -112,6 +111,12 @@ end
             @buys_deliverys.valid?
             expect(@buys_deliverys.errors.full_messages).to include("Phone number is invalid.")
            end
+
+           it '電話番号は半角英数混合では登録できない' do
+            @buys_deliverys.phone_number = '123abc'
+            @buys_deliverys.valid?
+            expect(@buys_deliverys.errors.full_messages).to include("Phone number is invalid.")
+          end
         end
   end
 end

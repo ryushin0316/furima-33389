@@ -7,7 +7,7 @@ class BuyDelivery
     validates :city, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/, message: "is invalid. Input full-width characters."}
     validates :address_number
     validates :phone_number, format: {with: /\A\d{10}\z|\A\d{11}\z/ , message: "is invalid."}, length: { maximum: 11 }
-    validates :token, presence: true
+    validates :token
   end
     validates :area_id, numericality: { other_than: 0, message: "can't be blank" }
 
