@@ -16,6 +16,7 @@ end
          end
 
         context '商品の購入ができない時' do
+
            it 'tokenが必須である' do
             @buys_deliverys.token = ''
             @buys_deliverys.valid?
@@ -29,7 +30,7 @@ end
            end 
         
            it '郵便番号にはハイフンが必要である' do
-            @buys_deliverys.post_number = '***-****'
+            @buys_deliverys.post_number = '1111111'
             @buys_deliverys.valid?
             expect(@buys_deliverys.errors.full_messages).to include("Post number is invalid. Include hyphen(-)")
            end
@@ -70,6 +71,11 @@ end
             expect(@buys_deliverys.errors.full_messages).to include("Address number can't be blank")
            end
 
+           it '建物名が空でも登録できること' do
+            @buys_deliverys.building_name = ''
+            @buys_deliverys.valid?
+           end
+
            it '電話番号が必須である' do
             @buys_deliverys.phone_number = ''
             @buys_deliverys.valid?
@@ -82,10 +88,16 @@ end
             expect(@buys_deliverys.errors.full_messages).to include("Phone number is invalid.")
            end
 
-           it '電話番号は11桁以内' do
-            @buys_deliverys.phone_number = '000000000000'
+           it '電話番号は9桁以下では登録できないこと' do
+            @buys_deliverys.phone_number = '000000000'
+           @buys_deliverys.valid?
+            expect(@buys_deliverys.errors.full_messages).to include("Phone number is invalid.")
+           end
+
+           it '電話番号は12桁以上では登録できないこと' do
+            @buys_deliverys.phone_number = '0000000000000'
             @buys_deliverys.valid?
-            expect(@buys_deliverys.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
+            expect(@buys_deliverys.errors.full_messages).to include("Phone number is invalid.")
            end
 
            it '電話番号は半角数字のみ保存可能であること' do

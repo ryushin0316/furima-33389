@@ -1,6 +1,5 @@
 class BuyDeliverysController < ApplicationController
   before_action :set_item, only: [:index, :create]
-  #before_action :sold_out_item, only: [:index]
   before_action :authenticate_user!, only:[:index, :create]
 
   before_action :move_to_index, only: [:index, :create]
@@ -29,16 +28,12 @@ class BuyDeliverysController < ApplicationController
     def pay_item
       Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
       Payjp::Charge.create(
-        amount: @item[:price],  # 商品の値段
-        card: delivery_params[:token],    # カードトークン
-        currency: 'jpy'                 # 通貨の種類（日本円）
+        amount: @item[:price],
+        card: delivery_params[:token],
+        currency: 'jpy'
       )
     end
     
-   # def sold_out_item
-    #  redirect_to root_path if @item.present?
-    #end
-
     def set_item
       @item = Item.find(params[:item_id])
     end
@@ -49,6 +44,3 @@ class BuyDeliverysController < ApplicationController
       end
     end
 end
-
-  #　amountの記述（商品のpriceの取得方法）
-  #　cardのparams名（delivery_paramsの記述でOKかどうか）
