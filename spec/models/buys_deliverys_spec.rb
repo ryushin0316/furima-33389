@@ -10,8 +10,14 @@ end
 
     describe '商品購入' do
          context '商品の購入ができる' do
+
            it '全ての情報があれば購入できる' do
            expect(@buys_deliverys).to be_valid
+           end
+
+           it '建物名が空でも登録できること' do
+            @buys_deliverys.building_name = ''
+            @buys_deliverys.valid?
            end
          end
 
@@ -42,7 +48,7 @@ end
            end
          
            it '郵便番号は全角文字では登録できないこと' do
-             @buys_deliverys.post_number = '０００−０００'
+             @buys_deliverys.post_number = '０００−００００'
              @buys_deliverys.valid?
              expect(@buys_deliverys.errors.full_messages).to include("Post number is invalid. Include hyphen(-)")
            end
@@ -69,11 +75,6 @@ end
             @buys_deliverys.address_number = ''
             @buys_deliverys.valid?
             expect(@buys_deliverys.errors.full_messages).to include("Address number can't be blank")
-           end
-
-           it '建物名が空でも登録できること' do
-            @buys_deliverys.building_name = ''
-            @buys_deliverys.valid?
            end
 
            it '電話番号が必須である' do

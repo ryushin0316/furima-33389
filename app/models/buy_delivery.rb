@@ -13,8 +13,8 @@ class BuyDelivery
 
 
     def save
-      Buy.create(item_id: item_id, user_id: user_id)
-      Delivery.create(area_id: area_id, post_number: post_number, city: city, address_number: address_number, building_name: building_name, phone_number:phone_number)
+      buy = Buy.create(item_id: item_id, user_id: user_id)
+      Delivery.create(area_id: area_id, post_number: post_number, city: city, address_number: address_number, building_name: building_name, phone_number:phone_number, buy_id: buy.id)
     end
 
 end
