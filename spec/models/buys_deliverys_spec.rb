@@ -120,7 +120,7 @@ end
             expect(@buys_deliverys.errors.full_messages).to include("User can't be blank")
            end
 
-           it 'user_idがない場合保存できない' do
+           it 'item_idがない場合保存できない' do
             @buys_deliverys.item_id = ''
             @buys_deliverys.valid?
             expect(@buys_deliverys.errors.full_messages).to include("Item can't be blank")

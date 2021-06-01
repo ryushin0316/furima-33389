@@ -39,7 +39,7 @@ class BuyDeliverysController < ApplicationController
     end
 
     def move_to_index
-      if current_user.id == @item.user_id || @item.buy.present? #商品が売れてるよ（ソールドアウトしているよ）
+      if current_user.id == @item.user_id || @item.buy.present?
         redirect_to root_path
       end
     end
