@@ -16,6 +16,7 @@ end
            end
 
            it '建物名が空でも登録できること' do
+            @buys_deliverys.building_name = ''
             expect(@buys_deliverys).to be_valid
           end
          end
@@ -40,12 +41,6 @@ end
             expect(@buys_deliverys.errors.full_messages).to include("Post number is invalid. Include hyphen(-)")
            end
         
-           it '郵便番号は半角数字のみ保存可能であること' do
-            @buys_deliverys.post_number = ''
-            @buys_deliverys.valid?
-            expect(@buys_deliverys.errors.full_messages).to include("Post number is invalid. Include hyphen(-)")
-           end
-         
            it '郵便番号は全角文字では登録できないこと' do
              @buys_deliverys.post_number = '０００−００００'
              @buys_deliverys.valid?
@@ -116,7 +111,21 @@ end
             @buys_deliverys.phone_number = '123abc'
             @buys_deliverys.valid?
             expect(@buys_deliverys.errors.full_messages).to include("Phone number is invalid.")
-          end
+           end
+
+
+           it 'user_idがない場合保存できない' do
+            @buys_deliverys.user_id = ''
+            @buys_deliverys.valid?
+            expect(@buys_deliverys.errors.full_messages).to include("User can't be blank")
+           end
+
+           it 'user_idがない場合保存できない' do
+            @buys_deliverys.item_id = ''
+            @buys_deliverys.valid?
+            expect(@buys_deliverys.errors.full_messages).to include("Item can't be blank")
+           end
+
         end
   end
 end
