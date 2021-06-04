@@ -53,16 +53,11 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    if @item.user_id != current_user.id 
+    if @item.user_id != current_user.id || @item.buy.present?
       redirect_to root_path
     end
   end
   
 end
 
-# if A == B (AがBだったら)
-# unless A != B (AがBだったら)
-
-# if A != B (AがBじゃなかったら)
-# unless A == B (AがBじゃなかったら)
 
